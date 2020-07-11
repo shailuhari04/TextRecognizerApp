@@ -1,0 +1,2 @@
+# TextRecognizerApp
+ Artivatic Test
