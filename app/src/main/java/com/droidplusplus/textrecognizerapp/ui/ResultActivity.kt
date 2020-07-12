@@ -1,22 +1,19 @@
 package com.droidplusplus.textrecognizerapp.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.droidplusplus.textrecognizerapp.databinding.ActivityResultBinding
+import com.droidplusplus.textrecognizerapp.utils.ClipBoardHelper
 import com.droidplusplus.textrecognizerapp.utils.Constants
-import com.droidplusplus.textrecognizerapp.utils.toast
 
 
 class ResultActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityResultBinding
+    private lateinit var binding: ActivityResultBinding
 
-    private val clipboardManager: ClipboardManager by lazy {
-        getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    private val clipBoardHelper: ClipBoardHelper by lazy {
+        ClipBoardHelper(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +35,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun getBundleData() {
         intent?.hasExtra(Constants.DATA_BUNDLE)?.takeIf { it }?.let {
-            binding.resultText.text = intent.getStringExtra(Constants.DATA_BUNDLE)
+            binding.resultTextTv.text = intent.getStringExtra(Constants.DATA_BUNDLE)
         }
     }
 
@@ -50,11 +47,8 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setUpCopyFunctionality() {
-        binding.resultText.setOnLongClickListener {
-            val clipData = ClipData.newPlainText("text", binding.resultText.text)
-            clipboardManager.setPrimaryClip(clipData)
-            toast("All Text Copied.")
-
+        binding.resultTextTv.setOnLongClickListener {
+            clipBoardHelper.copyData(binding.resultTextTv.text.toString())
             true
         }
     }

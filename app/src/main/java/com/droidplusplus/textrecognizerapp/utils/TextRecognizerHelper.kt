@@ -11,7 +11,9 @@ import java.io.IOException
 
 /**
  * This method will be called if the image is captured using camera.
+ * @param context
  * @param imageBitmap
+ * @param sendResultViaPickApi
  */
 fun firebaseVisionImageFromBitmap(
     context: Context,
@@ -24,7 +26,9 @@ fun firebaseVisionImageFromBitmap(
 
 /**
  * This method will be called if the image is selected from internal or external storage.
+ * @param context
  * @param uri
+ * @param sendResultViaPickApi
  */
 fun firebaseVisionImageFromFile(
     context: Context,
@@ -43,6 +47,8 @@ fun firebaseVisionImageFromFile(
 /**
  * This method is used to extract the text from the image
  * @param image
+ * @param context
+ * @param sendResultViaPickApi
  */
 fun recognizeText(
     context: Context,
@@ -67,7 +73,9 @@ fun recognizeText(
 
 /**
  * This method is used to process the text and send the result (text) to ResultLayout fragment
+ * @param context
  * @param firebaseVisionText
+ * @param sendResultViaPickApi
  */
 fun processText(
     context: Context,
