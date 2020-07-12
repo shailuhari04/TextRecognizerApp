@@ -11,12 +11,15 @@ import com.droidplusplus.textrecognizerapp.utils.firebaseVisionImageFromBitmap
 import com.droidplusplus.textrecognizerapp.utils.firebaseVisionImageFromFile
 import com.droidplusplus.textrecognizerapp.utils.gone
 import com.droidplusplus.textrecognizerapp.utils.visible
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private var isNothingSelected = true
+
+    private var resultText:String? = null
 
     var imageUri: Uri? = null
 
@@ -35,6 +38,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnGallery.setOnClickListener {
             pickImageFromGallery.launch("image/*")
+        }
+
+        binding.btnShowResult.setOnClickListener {
+            resultText?.takeIf { it.isNotBlank() }?.let {
+                sendResultViaPickApi.invoke(resultText)
+            } ?: run {
+                btnShowResult.gone()
+            }
         }
     }
 
@@ -65,8 +76,11 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ApiPickerActivityContract()) { data ->
             takeIf { data == null && isNothingSelected }?.run {
                 binding.tvMessage.visible()
+                binding.btnShowResult.gone()
             } ?: run {
+                resultText = data.toString()
                 binding.tvMessage.gone()
+                binding.btnShowResult.visible()
             }
         }
 }

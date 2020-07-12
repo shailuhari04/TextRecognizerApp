@@ -50,7 +50,7 @@ fun firebaseVisionImageFromFile(
  * @param context
  * @param sendResultViaPickApi
  */
-fun recognizeText(
+private fun recognizeText(
     context: Context,
     image: FirebaseVisionImage,
     sendResultViaPickApi: ActivityResultLauncher<String?>
@@ -77,7 +77,7 @@ fun recognizeText(
  * @param firebaseVisionText
  * @param sendResultViaPickApi
  */
-fun processText(
+private fun processText(
     context: Context,
     firebaseVisionText: FirebaseVisionText,
     sendResultViaPickApi: ActivityResultLauncher<String?>
